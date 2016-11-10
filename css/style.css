@@ -1,0 +1,71 @@
+html {
+	background-image: url("http://p3.storage.canalblog.com/30/96/576466/84031580_p.jpg");
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
+ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	background-color: #333;
+}
+
+li {
+	float: left;
+	border-right: 1px solid #bbb;
+		/* modifier les deux obligatoirement si besoin */
+	height: 50px;
+	line-height: 50px;
+	border-right: none;
+}
+
+li a {
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+/* Change the link color to #111 (black) on hover */
+li a:hover {
+	background-color: #111;
+}
+
+.navbar-left {
+	display: inline-block !important;
+	float: right !important;
+}
+
+footer {
+	position: absolute;
+	text-align: right;
+	color: white;
+	background-color: #333;
+	min-width : 99vw;
+	min-height: 3vw;
+	border-radius: 4px;
+	bottom: 0;
+}
+
+.main-frame {
+	display: inline-block;
+	padding: 10px;
+	background-color: #fff;
+	margin-left: 3vw;
+	margin-right: 3vw;
+	max-width : 60vw;
+	min-width : 60vw;
+	border-radius: 4px;
+}
+
+.side-frame {
+	display: inline-block;
+	padding: 10px;
+	background-color: #fff;
+	min-width : 25vw;
+	/*margin-left: 3vw;*/
+	/*margin-right: 3vw;*/
+	border-radius: 4px;
+}
