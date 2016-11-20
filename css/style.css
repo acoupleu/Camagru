@@ -40,9 +40,10 @@ li a:hover {
 
 footer {
 	position: absolute;
-	text-align: right;
+	text-align: center;
 	color: white;
 	background-color: #333;
+	padding-top: 1vw;
 	min-width : 99vw;
 	min-height: 3vw;
 	border-radius: 4px;
@@ -59,6 +60,11 @@ footer {
 	min-width : 60vw;
 	border-radius: 4px;
 }
+
+#canvas {
+	display: none;
+}
+
 
 .side-frame {
 	display: inline-block;

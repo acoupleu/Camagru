@@ -1,21 +1,27 @@
-<?php
-session_start();
-?>
 <html>
 	<head>
-	<title>Camagru</title>
-	<meta charset="UTF-8">
-	<link rel="stylesheet" href="css/style.css">
+		<title>Camagru</title>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" href="css/style.css">
 	</head>
 	<body>
 		<ul>
 			<li>
 				<a href="index.php">Accueil</a>
+			<?php
+			if (isset($_SESSION["connect"]) && isset($_SESSION["username"]))
+			{
+			?>
 				<a href="index.php">Ma galerie</a>
+				<a href="index.php?p=mount">Montage</a>
+			<?php
+			}
+			?>
 			</li>
 			<li class="navbar-left">
 			<?php
-			if (!isset($_SESSION["connect"]) && !isset($_SESSION["username"])) {
+			if (!isset($_SESSION["connect"]) && !isset($_SESSION["username"]))
+			{
 			?>
 				<a href="index.php?p=login">Se connecter</a>
 				<a href="index.php?p=register">S'enregister</a>
@@ -35,6 +41,6 @@ session_start();
 
 	</body>
 	<footer>
-		Camagru
+		Camagru ©acoupleu
 	</footer>
 </html>

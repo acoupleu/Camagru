@@ -1,10 +1,10 @@
-	<div class="main-frame">
+<div class="main-frame">
 		<?php
-		echo "HOME";
+			echo "HOMY";
 		?>
 	</div>
 	<div class="side-frame">
 		<?php
-		echo "Side";
+			echo "Side";
 		?>
 	</div>

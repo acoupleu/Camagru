@@ -10,6 +10,10 @@ $bdd->query("CREATE TABLE IF NOT EXISTS users
 			(
 				user_login VARCHAR(255) NOT NULL,
 				user_password VARCHAR(255) NOT NULL,
-				user_email VARCHAR(255) NOT NULL
-			)", null);
+				user_email VARCHAR(255) NOT NULL,
+				user_key varchar(32) NOT NULL,
+				actif INT DEFAULT 0,
+				reini_key varchar(255),
+				reini_done INT DEFAULT 1
+			)");
 ?>
