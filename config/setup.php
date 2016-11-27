@@ -16,4 +16,15 @@ $bdd->query("CREATE TABLE IF NOT EXISTS users
 				reini_key varchar(255),
 				reini_done INT DEFAULT 1
 			)");
+$bdd->query("CREATE TABLE IF NOT EXISTS photos
+			(
+				user_login VARCHAR(255) NOT NULL,
+				photo text,
+				likes int,
+				date_creation DATETIME
+			)");
+			define('UPLOAD_DIR', '../photo_users/' . $username . '/');
+if (!file_exists("photo_users"))
+	mkdir("photo_users");
+
 ?>

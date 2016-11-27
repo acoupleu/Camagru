@@ -4,8 +4,7 @@ Autoloader::register();
 session_start();
 if (!isset($bdd))
 	require ("config/setup.php");
-if (isset($_GET['p']))
-{
+if (isset($_GET['p'])){
 	$p = $_GET['p'];
 }
 else
@@ -14,45 +13,38 @@ else
 }
 
 ob_start();
-if ($p === 'home')
-{
+if ($p === 'home'){
 	require 'pages/home.php';
 }
-elseif ($p === 'login')
-{
+elseif ($p === 'login'){
 	require 'pages/login.php';
 }
-elseif ($p === 'logout')
-{
+elseif ($p === 'logout'){
 	require 'pages/logout.php';
 }
-elseif ($p === 'profil')
-{
+elseif ($p === 'profil'){
 	require 'pages/profil.php';
 }
-elseif ($p === 'mount')
-{
-	require 'pages/photoshop_room.php';
+elseif ($p === 'mount'){
+	require 'pages/photomaton.php';
 }
-elseif ($p === 'register')
-{
+elseif ($p === 'register'){
 	require 'pages/register.php';
 }
-elseif ($p === 'validation')
-{
+elseif ($p === 'validation'){
 	require 'pages/validation.php';
 }
-elseif ($p === 'pwchange')
-{
+elseif ($p === 'pwchange'){
 	require 'pages/change_password.php';
 }
-elseif ($p === 'pwforgot')
-{
+elseif ($p === 'pwforgot'){
 	require 'pages/forgot_password.php';
 }
-elseif ($p === 'pwreini')
-{
+elseif ($p === 'pwreini'){
 	require 'pages/reini_password.php';
+}
+elseif ($p === 'gallery'){
+	require 'pages/gallery.php';
 }
 else
 {

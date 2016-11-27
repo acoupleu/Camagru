@@ -4,7 +4,7 @@ html {
 	background-size: cover;
 }
 
-ul {
+ul.header{
 	list-style-type: none;
 	margin: 0;
 	padding: 0;
@@ -12,7 +12,7 @@ ul {
 	background-color: #333;
 }
 
-li {
+.header > li {
 	float: left;
 	border-right: 1px solid #bbb;
 		/* modifier les deux obligatoirement si besoin */
@@ -21,7 +21,7 @@ li {
 	border-right: none;
 }
 
-li a {
+.header > li a {
     color: white;
     text-align: center;
     padding: 14px 16px;
@@ -29,8 +29,20 @@ li a {
 }
 
 /* Change the link color to #111 (black) on hover */
-li a:hover {
+.header > li a:hover {
 	background-color: #111;
+}
+
+li.photomaton {
+	display: inline;
+}
+
+div.photomaton{
+	display: inline-block;
+}
+
+img#filter{
+	position: absolute;
 }
 
 .navbar-left {
@@ -50,6 +62,26 @@ footer {
 	bottom: 0;
 }
 
+img.miniature{
+	height: 100px;
+	width: auto;
+	cursor:pointer;
+}
+
+
+td > div{
+	text-align: center;
+}
+
+td.none{
+	width: 100px;
+	cursor:pointer;
+}
+
+td.photo{
+	border:1px solid #000000;
+}
+
 .main-frame {
 	display: inline-block;
 	padding: 10px;
@@ -61,17 +93,82 @@ footer {
 	border-radius: 4px;
 }
 
+.gallery {
+	background-color: #fff;
+	margin-left: 10px;
+	border-radius: 4px;
+}
+
+td.minigal > img{
+	height: 100px;
+	width: auto;
+}
+
+div.photogallery{
+	position: relative;
+	display: inline-block;
+	padding: 1px;
+}
+
+div.photogallery > div{
+	position: relative;
+	display: block;
+	padding: 1px;
+}
+
+div.imgopt > span{
+	position: relative;
+	float: right;
+	margin-right: 5px;
+	cursor:pointer;
+}
+
+div.photogallery > img{
+	height: 200px;
+	width: auto;
+	border-radius: 10px;
+}
+
 #canvas {
 	display: none;
 }
-
 
 .side-frame {
 	display: inline-block;
 	padding: 10px;
 	background-color: #fff;
 	min-width : 25vw;
-	/*margin-left: 3vw;*/
-	/*margin-right: 3vw;*/
 	border-radius: 4px;
+}
+
+span#delete > img{
+	height: 15px;
+	width: 15px;
+}
+span#like > img{
+	height: 15px;
+	width: 15px;
+}
+
+#tempo {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin-top: -5%;
+	margin-left: -15%;
+	width: 300px;
+	height: 40px;
+	border: 3px solid #218eb7;
+	border-radius: 4px;
+	font-size:1rem;
+	color:#218eb7;
+	text-align:center;
+	line-height:40px;
+	animation-name: disparition;
+	animation-duration: 2s;
+}
+
+@keyframes disparition {
+	from {color:#218eb7; border: 3px solid #218eb7;}
+	to {color:#baecff; border: 3px solid #baecff}
 }

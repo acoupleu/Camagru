@@ -1,31 +1,52 @@
 <?php
-if (isset($_SESSION["connect"]) && isset($_SESSION["username"]))
+session_start();
+function base64_encode_img ($file_name, $file_type)
 {
-	$img = $_POST["img"];
-	var_dump($img);
-?>
-	<script src="oXHR.js"></script>
-	<script src="webcam.js"></script>
-	<div class="camera">
-		<video id="video">Video stream not available.</video>
-		<img id="filtreactive" src="">
-		<br />
-		<button id="startbutton">Prendre une photo</button>
-		<br />
-		<div class="output">
-			<img id="photo" alt="The screen capture will appear in this box.">
-		</div>
-		<canvas id="canvas"></canvas>
-	</div>
-<?php
+	if ($file_name)
+	{
+		$image = fread(fopen($file_name, "r"), filesize($file_name));
+		return 'data:image/' . $file_type . ';base64,' . base64_encode($image);
+	}
 }
-else
+
+
+$img = $_POST["img"];
+$filtre = $_POST["filtre"];
+
+define('UPLOAD_DIR', '../img/');
+$img = str_replace('data:image/png;base64,', '', $img);
+$img = str_replace(' ', '+', $img);
+$data = base64_decode($img);
+$file = UPLOAD_DIR . uniqid() . '.png';
+$success = file_put_contents($file, $data);
+
+$largeur = 500;
+$hauteur = 375;
+$image1 = imagecreatefrompng($file);
+unlink($file);
+
+$image2 = imagecreatefrompng('../img/' . $filtre . '.png');
+switch ($filtre)
 {
-?>
-	<p><strong>Vous n'avez pas accès à cette page, veuillez vous connecter.</strong></p>
-	<p>Vous allez être redirigé dans 5 secondes	</p>
-	<p>Si la page ne se rafraichit pas automatiquement, <a href="index.php">cliquez ici.</a></p>
-<?php
-	header('Refresh: 5;url=http://localhost:8080/Camagru/index.php');
+	case 'bonnet':
+		imagecopy($image1, $image2, 0, 0, 0,0, 475, 370);
+		break;
+	case 'ashe':
+		imagecopy($image1, $image2, 0, 0, 0, 0, 500, 320);
+		break;
+	case 'kyouko':
+		imagecopy($image1, $image2, 0, 0, 0,0, 495, 340);
+		break;
+	case 'ironman':
+		imagecopy($image1, $image2, 0, 0, 0, 0, 500, 450);
+		break;
 }
+imagepng($image1, 'image.png');
+
+imagedestroy($image1);
+imagedestroy($image2);
+
+$image = base64_encode_img('image.png','png');
+unlink('image.png');
+echo $image;
 ?>

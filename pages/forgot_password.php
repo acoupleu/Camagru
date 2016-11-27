@@ -24,12 +24,12 @@ if (!isset($_SESSION["connect"]))
 				array("key" => $key, "username" => $username));
 				$userlog = new User($username, null, $email, $key);
 				$userlog->sendResetMail();
+				echo "Un mail vous a été envoyé";
 			}
 			else
 			{
 				echo "Mauvais email";
 			}
-			// header('Location: index.php?p=login');
 		}
 		else
 		{

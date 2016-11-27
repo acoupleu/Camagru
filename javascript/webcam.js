@@ -25,7 +25,7 @@
 		video = document.getElementById('video');
 		canvas = document.getElementById('canvas');
 		photo = document.getElementById('photo');
-		startbutton = document.getElementById('startbutton');
+		startbutton = document.getElementById('printbutton');
 
 		navigator.getMedia = ( navigator.getUserMedia ||
 								navigator.webkitGetUserMedia ||
@@ -95,7 +95,7 @@
 	function clearphoto()
 	{
 		var context = canvas.getContext('2d');
-		context.fillStyle = "#AAA";
+		context.fillStyle = 'rgba(0, 0, 0, 0)';
 		context.fillRect(0, 0, canvas.width, canvas.height);
 
 		var data = canvas.toDataURL('image/png');
@@ -118,12 +118,24 @@
 
 			var data = canvas.toDataURL('image/png');
 
-			photo.setAttribute('src', data);
-
 			var xhr = getXMLHttpRequest();
-			xhr.open("POST", "index.php?p=mount", true);
+			xhr.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+				document.getElementById("photo").src = this.responseText;
+				createButtons();
+				}
+			};
+
+			var filtre = document.getElementById('filter').alt;
+			if (!filtre || filtre == 'null')
+			{
+				alert("Vous devez selectionner un filtre !");
+				return ;
+			}
+
+			xhr.open("POST", "pages/photoshop_room.php", true);
 			xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-			xhr.send("img="+encodeURIComponent(data));
+			xhr.send("img="+encodeURIComponent(data)+"&filtre="+encodeURIComponent(filtre));
 		}
 		else
 		{
