@@ -46,6 +46,7 @@ function addgallery(){
 	xhr.onreadystatechange = function() {
 	if (this.readyState == 4 && this.status == 200) {
 		gallery.innerHTML = this.responseText;
+		createLightbox();
 		}
 	};
 	xhr.open("GET", "pages/minigallery.php", true);
@@ -80,3 +81,34 @@ function savedConfirm(){
 		document.body.removeChild(divtempo);
 	}, 1600);
 }
+
+function createLightbox(){
+	var links = document.getElementsByClassName('minilink');
+	linksLen = links.length;
+
+	for (var i = 0; i < linksLen; i++) {
+		links[i].addEventListener('click', function(e) {
+			e.preventDefault();
+			displayImage(e.currentTarget);
+		});
+	}
+}
+
+function displayImage(link) {
+
+	var img = new Image(),
+	overlay = document.getElementById('overlay');
+
+	img.addEventListener('load', function() {
+		overlay.innerHTML = '';
+		overlay.appendChild(img);
+	});
+
+	img.src = link.href;
+	overlay.style.display = 'block';
+	overlay.innerHTML = '<span>Chargement en cours...</span>';
+}
+
+document.getElementById('overlay').addEventListener('click', function(e) {
+	e.currentTarget.style.display = 'none';
+});

@@ -99,7 +99,7 @@ td.photo{
 	border-radius: 4px;
 }
 
-td.minigal > img{
+td.minigal > a > img{
 	height: 100px;
 	width: auto;
 }
@@ -171,4 +171,18 @@ span#like > img{
 @keyframes disparition {
 	from {color:#218eb7; border: 3px solid #218eb7;}
 	to {color:#baecff; border: 3px solid #baecff}
+}
+
+#overlay {
+	display : none;
+
+	position: absolute;
+	top: 0; left: 0;
+	width: 100%; height: 100%;
+	text-align: center;
+	background-color: rgba(0,0,0,0.6);
+}
+
+#overlay img {
+	margin-top: 15%;
 }

@@ -24,7 +24,7 @@ if (!isset($_SESSION["connect"]))
 			array(	"username" => $username,
 					"password" => $password,
 					"email" => $email,
-					"user_key" => $key), null);
+					"user_key" => $key));
 			$userlog = new User($username, $password, $email, $key);
 			$userlog->sendMail();
 			$userlog = null;

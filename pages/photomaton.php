@@ -4,7 +4,6 @@ if (isset($_SESSION["connect"]) && isset($_SESSION["username"]))
 ?>
 <script src="javascript/oXHR.js"></script>
 <script src="javascript/webcam.js"></script>
-<script src="javascript/imgManagement.js"></script>
 <div class="main-frame">
 	<div>
 		<table class="photomaton">
@@ -31,6 +30,8 @@ if (isset($_SESSION["connect"]) && isset($_SESSION["username"]))
 </div>
 <div class="side-frame">
 </div>
+<div id="overlay"></div>
+<script src="javascript/imgManagement.js"></script>
 <script>
 	addgallery();
 </script>

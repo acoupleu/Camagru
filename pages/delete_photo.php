@@ -1,7 +1,7 @@
 <?php
 session_start();
-include '../config/db_connection.php';
-include '../config/database.php';
+require '../config/db_connection.php';
+require '../config/database.php';
 $username = $_SESSION["username"];
 $photo = $_POST['photo'];
 
@@ -11,6 +11,6 @@ unlink($photo);
 $bdd = new Database($DB_DSN, $DB_USER, $DB_PASSWORD);
 $bdd->prepare("DELETE FROM photos WHERE user_login=:username AND photo=:photo",
 			array("username" => $username,
-				"photo" => $photo), null);
+				"photo" => $photo));
 $bdd = null;
 ?>

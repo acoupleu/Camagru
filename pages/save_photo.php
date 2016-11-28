@@ -1,7 +1,7 @@
 <?php
 session_start();
-include '../config/db_connection.php';
-include '../config/database.php';
+require '../config/db_connection.php';
+require '../config/database.php';
 $username = $_SESSION["username"];
 $photo = $_POST['photo'];
 
@@ -18,6 +18,6 @@ $bdd->prepare("INSERT INTO photos(user_login, photo, likes, date_creation) VALUE
 			array("username" => $username,
 				"photo" => $file,
 				"likes" => 0,
-				"times" => date("Y-m-d H:i:s")), null);
+				"times" => date("Y-m-d H:i:s")));
 $bdd = null;
 ?>
