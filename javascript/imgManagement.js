@@ -95,7 +95,6 @@ function createLightbox(){
 }
 
 function displayImage(link) {
-
 	var img = new Image(),
 	overlay = document.getElementById('overlay');
 

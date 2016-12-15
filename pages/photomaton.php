@@ -4,7 +4,15 @@ if (isset($_SESSION["connect"]) && isset($_SESSION["username"]))
 ?>
 <script src="javascript/oXHR.js"></script>
 <script src="javascript/webcam.js"></script>
+<div id="photomaton">
 <div class="main-frame">
+	<p id="support-notice">Your browser does not support Ajax uploads :-(<br/>The form will be submitted as normal.</p>
+	<form action="/" method="post" enctype="multipart/form-data" id="form-id">
+		<p><input id="file-id" type="file" name="our-file" />
+		<input type="button" value="Upload" id="upload-button-id" disabled="disabled" /></p>
+		<p><label>Some other field: <input name="other-field" type="text" id="other-field-id" /></label></p>
+		<p><input type="submit" value="Submit" /></p>
+	</form>
 	<div>
 		<table class="photomaton">
 			<tr>
@@ -17,18 +25,9 @@ if (isset($_SESSION["connect"]) && isset($_SESSION["username"]))
 		</table>
 	</div>
 	<img id="filter">
-	<div class="camera">
-		<video id="video">Video stream not available.</video>
-		<br />
-		<button id="printbutton">Prendre une photo</button>
-		<br />
-		<div class="output">
-			<img id="photo">
-		</div>
-		<canvas id="canvas"></canvas>
-	</div>
 </div>
 <div class="side-frame">
+</div>
 </div>
 <div id="overlay"></div>
 <script src="javascript/imgManagement.js"></script>

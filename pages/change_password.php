@@ -1,4 +1,5 @@
 <?php
+require 'tools.php';
 if (isset($_SESSION["connect"]) && isset($_SESSION["username"]))
 {
 ?>
@@ -18,23 +19,30 @@ if (isset($_SESSION["connect"]) && isset($_SESSION["username"]))
 		$password = hash('whirlpool', $_POST["oldpw"]);
 		if ($userlog->getUserPass() === $password)
 		{
-			$newpassword = hash('whirlpool', $_POST["newpw"]);
-			if ($newpassword === $password)
+			if (isSecured($_POST["newpw"]))
 			{
-				echo "Mot de passe identique";
-			}
-			else
-			{
-				if ($_POST["newpw"] === $_POST["confpw"])
+				$newpassword = hash('whirlpool', $_POST["newpw"]);
+				if ($newpassword === $password)
 				{
-					$bdd->prepare("UPDATE users SET user_password=:password WHERE user_login=:username",
-					array("username" => $_SESSION["username"], "password" => $newpassword));
-					echo "Mot de passe changé avec succès";
+					echo "Mot de passe identique";
 				}
 				else
 				{
-					echo "Les mots de passes ne correspondent pas.";
+					if ($_POST["newpw"] === $_POST["confpw"])
+					{
+						$bdd->prepare("UPDATE users SET user_password=:password WHERE user_login=:username",
+						array("username" => $_SESSION["username"], "password" => $newpassword));
+						echo "Mot de passe changé avec succès";
+					}
+					else
+					{
+						echo "Les mots de passes ne correspondent pas.";
+					}
 				}
+			}
+			else
+			{
+				echo "Votre mot de passe doit contenir au moins 8 caractères et être composé de lettres ET de chiffres. Veuillez en essayer un autre.";
 			}
 		}
 		else

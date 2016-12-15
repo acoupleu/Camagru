@@ -1,4 +1,5 @@
 <?php
+require 'tools.php';
 $username = $_GET['log'];
 $key = $_GET['key'];
 
@@ -34,16 +35,23 @@ else
 <?php
 		if (isset($_POST["newpw"]) && isset($_POST["confpw"]))
 		{
-			if ($_POST["newpw"] === $_POST["confpw"])
+			if (isSecured($_POST["newpw"]))
 			{
-				$password = hash('whirlpool', $_POST["newpw"]);
-				$bdd->prepare("UPDATE users SET reini_done = 1, user_password=:password WHERE user_login=:username",
-				array("username" => $username, "password" => $password));
-				header('Location: index.php?p=pwreini&log=' . $username . '&key=' . $key);
+				if ($_POST["newpw"] === $_POST["confpw"])
+				{
+					$password = hash('whirlpool', $_POST["newpw"]);
+					$bdd->prepare("UPDATE users SET reini_done = 1, user_password=:password WHERE user_login=:username",
+					array("username" => $username, "password" => $password));
+					header('Location: index.php?p=pwreini&log=' . $username . '&key=' . $key);
+				}
+				else
+				{
+					echo "Les mots de passes ne correspondent pas.";
+				}
 			}
 			else
 			{
-				echo "Les mots de passes ne correspondent pas.";
+				echo "Votre mot de passe doit contenir au moins 8 caractères et être composé de lettres ET de chiffres. Veuillez en essayer un autre.";
 			}
 		}
 	}

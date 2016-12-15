@@ -1,4 +1,4 @@
-(function()
+var put_cam = function()
 {
 	// The width and height of the captured photo. We will set the
 	// width to the value defined here, but the height will be
@@ -145,5 +145,36 @@
 
 	// Set up our event listener to run the startup process
 	// once loading is complete.
-	window.addEventListener('load', startup, false);
-})();
+	startup();
+	
+	var eID = document.getElementById("camImport")
+
+	eID.options[1].selected = true;
+};
+
+function insertAfter(newNode, referenceNode) {
+	referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
+}
+
+function camOrImport(value) {
+	if (value === "cam")
+	{
+		var parentCam = document.getElementsByClassName("main-frame")[0];
+
+		var xhr = getXMLHttpRequest();
+
+		xhr.onreadystatechange = function() {
+		if (this.readyState == 4 && this.status == 200) {
+			parentCam.innerHTML += this.responseText;
+			put_cam();
+			}
+		};
+
+		xhr.open("GET", "pages/camOn.php", true);
+		xhr.send();
+	}
+	else
+	{
+		location.reload();
+	}
+}

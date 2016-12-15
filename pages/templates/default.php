@@ -8,11 +8,12 @@
 		<ul class="header">
 			<li>
 				<a href="index.php">Accueil</a>
+				<a href="index.php?p=gallery">Galerie</a>
 			<?php
 			if (isset($_SESSION["connect"]) && isset($_SESSION["username"]))
 			{
 			?>
-				<a href="index.php?p=gallery">Ma galerie</a>
+				<a href="index.php?p=mygallery">Ma galerie</a>
 				<a href="index.php?p=mount">Montage</a>
 			<?php
 			}

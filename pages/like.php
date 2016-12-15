@@ -1,7 +1,6 @@
 <?php
 session_start();
 require '../config/db_connection.php';
-require '../config/Article.php';
 require '../config/database.php';
 
 $photoPath = $_POST['photo'];

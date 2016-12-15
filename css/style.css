@@ -1,5 +1,5 @@
 html {
-	background-image: url("http://p3.storage.canalblog.com/30/96/576466/84031580_p.jpg");
+	background-image: url("../img/background.jpg");
 	background-repeat: no-repeat;
 	background-size: cover;
 }
@@ -33,6 +33,10 @@ ul.header{
 	background-color: #111;
 }
 
+#photomaton {
+	display: flex;
+}
+
 li.photomaton {
 	display: inline;
 }
@@ -51,7 +55,6 @@ img#filter{
 }
 
 footer {
-	position: absolute;
 	text-align: center;
 	color: white;
 	background-color: #333;
@@ -105,25 +108,25 @@ td.minigal > a > img{
 }
 
 div.photogallery{
-	position: relative;
 	display: inline-block;
 	padding: 1px;
 }
 
 div.photogallery > div{
-	position: relative;
 	display: block;
 	padding: 1px;
 }
 
-div.imgopt > span{
-	position: relative;
+.photogallery > div.imgopt > span{
 	float: right;
+}
+
+div.imgopt > span{
 	margin-right: 5px;
 	cursor:pointer;
 }
 
-div.photogallery > img{
+div.photogallery > a > img{
 	height: 200px;
 	width: auto;
 	border-radius: 10px;
@@ -175,7 +178,6 @@ span#like > img{
 
 #overlay {
 	display : none;
-
 	position: absolute;
 	top: 0; left: 0;
 	width: 100%; height: 100%;
@@ -185,4 +187,59 @@ span#like > img{
 
 #overlay img {
 	margin-top: 15%;
+}
+
+#overlayGal {
+	display : none;
+	position: fixed;
+	top: 0; left: 0;
+	width: 100%; height: 100%;
+	background-color: rgba(0,0,0,0.6);
+}
+
+#actionBox {
+	position: relative;
+	display: inline-flex;
+	margin-left: 20%;
+	margin-right: 20%;
+	background-color: white;
+	top: 20%;
+	text-align: center;
+}
+
+.likeandcom {
+	padding: 20px;
+}
+
+.likebox {
+	display: inline-flex;
+}
+
+div.commentBox {
+	overflow-y: scroll;
+	height: 260px;
+	min-width: 200px;
+}
+
+div.comment {
+	border: 1px solid #bbb;
+	text-align: left;
+	padding: 3px;
+	margin: 2px;
+	word-wrap: break-word;
+	max-width: 200px;
+}
+
+span.user {
+	display: flex;
+	font-size: small;
+	color: #365899;
+	font-weight: bolder;
+	font-style: italic;
+}
+
+span.date {
+	font-size: x-small;
+	display: block;
+	text-align: right;
 }

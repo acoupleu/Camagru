@@ -43,8 +43,14 @@ elseif ($p === 'pwforgot'){
 elseif ($p === 'pwreini'){
 	require 'pages/reini_password.php';
 }
+elseif ($p === 'mygallery'){
+	require 'pages/mygallery.php';
+}
 elseif ($p === 'gallery'){
 	require 'pages/gallery.php';
+}
+elseif ($p === 'photo'){
+	require 'pages/page_photo.php';
 }
 else
 {

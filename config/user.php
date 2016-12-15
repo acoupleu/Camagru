@@ -9,8 +9,9 @@ class User
 	private $actif;
 	private $reini_key;
 	private $reini_done;
+	private $photo;
 
-	public function __construct($user_login = null, $user_password = null, $user_email = null, $user_key = null, $actif = null, $reini_key = null, $reini_done = null)
+	public function __construct($user_login = null, $user_password = null, $user_email = null, $user_key = null, $actif = null, $reini_key = null, $reini_done = null, $photo = null)
 	{
 		$this->user_login = $user_login;
 		$this->user_password = $user_password;
@@ -19,6 +20,7 @@ class User
 		$this->actif = $actif;
 		$this->reini_key = $reini_key;
 		$this->reini_done = $reini_done;
+		$this->photo = $photo;
 	}
 
 	public function getUserName()
@@ -73,13 +75,36 @@ class User
 		$message = '
 		<html>
 		<head>
-		<title>Calendrier des anniversaires pour Août</title>
+		<title>Reinitialisation mot de passe</title>
 		</head>
 		<body>
 			<p>Bonjour ' . $this->user_login . ',</p>
 			<br />
 			<p>Quelqu’un a récemment demandé à réinitialiser votre mot de passe Camagru.</p>
 			<a href="http://localhost:8080/Camagru/index.php?p=pwreini&log=' . urlencode($this->user_login) . '&key=' . urlencode($this->user_key) . '">Cliquez ici pour changer votre mot de passe.</a>
+			<br />
+			<p>---------------</p>
+			<p>Ceci est un mail automatique, Merci de ne pas y répondre.</p>
+		</body>
+		</html>
+		';
+		$headers  = 'MIME-Version: 1.0' . "\r\n";
+		$headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+		$headers .= 'From: acoupleu@student.42.fr' . "\r\n";
+		mail($this->user_email, $subject, $message, $headers);
+	}
+
+	public function sendCommentMail()
+	{
+		$subject = $this->user_login . ' vient de commenter votre photo.';
+		$message = '
+		<html>
+		<head>
+		<title>Nouveau commentaire</title>
+		</head>
+		<body>
+			<p>' . $this->user_login . ' vient de commenter une de vos photo sur Camagru.</p>
+			<a href="http://localhost:8080/Camagru/index.php?p=mygallery&photo=' . urlencode($this->photo) . '">Cliquez ici pour voir le commentaire.</a>
 			<br />
 			<p>---------------</p>
 			<p>Ceci est un mail automatique, Merci de ne pas y répondre.</p>

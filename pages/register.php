@@ -1,4 +1,5 @@
 <?php
+require 'tools.php';
 if (!isset($_SESSION["connect"]))
 {
 ?>
@@ -9,29 +10,46 @@ if (!isset($_SESSION["connect"]))
 		<input type="submit" value="S'enregister">
 	</form>
 <?php
-	if (isset($_POST["username"]) && isset($_POST["password"])) {
-		$username = $_POST["username"];
-		$password = hash('whirlpool', $_POST["password"]);
-		$email = $_POST["email"];
-		$key = md5(microtime(TRUE)*100000);
-		$userlog = $bdd->prepare("SELECT user_login FROM users WHERE user_login=?", array($username), User, true);
-		if ($userlog == null) {
-			$bdd->prepare("INSERT INTO users(user_login, user_password, user_email, user_key)
-			VALUES (:username,
-					:password,
-					:email,
-					:user_key)",
-			array(	"username" => $username,
-					"password" => $password,
-					"email" => $email,
-					"user_key" => $key));
-			$userlog = new User($username, $password, $email, $key);
-			$userlog->sendMail();
-			$userlog = null;
-			header('Location: index.php?p=login');
+	if (isset($_POST["username"]) && isset($_POST["password"]))
+	{
+		if (isSecured($_POST["password"]))
+		{
+			if (isValidEmail($_POST["email"]))
+			{
+				$username = $_POST["username"];
+				$password = hash('whirlpool', $_POST["password"]);
+				$email = $_POST["email"];
+				$key = md5(microtime(TRUE)*100000);
+				$userlog = $bdd->prepare("SELECT user_login FROM users WHERE user_login=?", array($username), User, true);
+				if ($userlog == null)
+				{
+					$bdd->prepare("INSERT INTO users(user_login, user_password, user_email, user_key)
+					VALUES (:username,
+							:password,
+							:email,
+							:user_key)",
+					array(	"username" => $username,
+							"password" => $password,
+							"email" => $email,
+							"user_key" => $key));
+					$userlog = new User($username, $password, $email, $key);
+					$userlog->sendMail();
+					$userlog = null;
+					header('Location: index.php?p=login');
+				}
+				else
+				{
+					echo "Votre login est déjà utilisé.";
+				}
+			}
+			else
+			{
+				echo "Votre email doit être afin d'activer votre compte.";
+			}
 		}
-		else {
-			echo "deja enregistre, desole, degage";
+		else
+		{
+			echo "Votre mot de passe doit contenir au moins 8 caractères et être composé de lettres ET de chiffres. Veuillez en essayer un autre.";
 		}
 	}
 }
