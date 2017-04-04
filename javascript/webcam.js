@@ -122,7 +122,7 @@ var put_cam = function()
 			xhr.onreadystatechange = function() {
 			if (this.readyState == 4 && this.status == 200) {
 				document.getElementById("photo").src = this.responseText;
-				createButtons();
+				createButtons('cam');
 				}
 			};
 
@@ -135,7 +135,7 @@ var put_cam = function()
 
 			xhr.open("POST", "pages/photoshop_room.php", true);
 			xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-			xhr.send("img="+encodeURIComponent(data)+"&filtre="+encodeURIComponent(filtre));
+			xhr.send("img="+encodeURIComponent(data)+"&filtre="+encodeURIComponent(filtre)+"&with=cam");
 		}
 		else
 		{
@@ -146,35 +146,45 @@ var put_cam = function()
 	// Set up our event listener to run the startup process
 	// once loading is complete.
 	startup();
-	
+
 	var eID = document.getElementById("camImport")
 
 	eID.options[1].selected = true;
 };
-
-function insertAfter(newNode, referenceNode) {
-	referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
-}
 
 function camOrImport(value) {
 	if (value === "cam")
 	{
 		var parentCam = document.getElementsByClassName("main-frame")[0];
 
+		var divUpload = document.getElementById('upload-div');
+		divUpload.style.display = 'none';
+		var divUploaded = document.getElementById('uploaded-div');
+		if (divUploaded)
+		{
+			divUploaded.style.display = 'none';
+		}
+
+		var saveButtonExist = document.getElementById('saveButton');
+		if (saveButtonExist)
+		{
+			saveButtonExist.parentNode.removeChild(saveButtonExist);
+		}
+
 		var xhr = getXMLHttpRequest();
 
 		xhr.onreadystatechange = function() {
 		if (this.readyState == 4 && this.status == 200) {
 			parentCam.innerHTML += this.responseText;
+			window.allowFilter = true;
 			put_cam();
 			}
 		};
-
 		xhr.open("GET", "pages/camOn.php", true);
 		xhr.send();
 	}
 	else
 	{
-		location.reload();
+		location.assign("http://localhost:8080/Camagru/index.php?p=mount");
 	}
 }

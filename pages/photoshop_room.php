@@ -13,18 +13,22 @@ function base64_encode_img ($file_name, $file_type)
 $img = $_POST["img"];
 $filtre = $_POST["filtre"];
 
-define('UPLOAD_DIR', '../img/');
-$img = str_replace('data:image/png;base64,', '', $img);
-$img = str_replace(' ', '+', $img);
-$data = base64_decode($img);
-$file = UPLOAD_DIR . uniqid() . '.png';
-$success = file_put_contents($file, $data);
+if ($_POST["with"] === 'cam')
+{
+	define('UPLOAD_DIR', '../img/');
+	$img = str_replace('data:image/png;base64,', '', $img);
+	$img = str_replace(' ', '+', $img);
+	$data = base64_decode($img);
+	$file = UPLOAD_DIR . uniqid() . '.png';
+	$success = file_put_contents($file, $data);
 
-$largeur = 500;
-$hauteur = 375;
-$image1 = imagecreatefrompng($file);
-unlink($file);
-
+	$image1 = imagecreatefrompng($file);
+	unlink($file);
+}
+else
+{
+	$image1 = imagecreatefrompng('img/imgtmp.png');
+}
 $image2 = imagecreatefrompng('../img/' . $filtre . '.png');
 switch ($filtre)
 {

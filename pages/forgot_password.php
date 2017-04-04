@@ -7,7 +7,7 @@ if (!isset($_SESSION["connect"]))
 	<form action="index.php?p=pwforgot" method="post">
 		<input type="text" name="username" placeholder="username" required/>
 		<input type="text" name="email" placeholder="email address" required/>
-		<input type="submit" value="S'enregister">
+		<input type="submit" value="Envoyer">
 	</form>
 <?php
 	if (isset($_POST["username"]) && isset($_POST["email"]))

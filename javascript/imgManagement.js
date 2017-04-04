@@ -1,25 +1,34 @@
+var allowFilter = false;
+
 function setImage(image) {
-	if (image == "none")
+	if (allowFilter)
 	{
-		document.getElementById('filter').style.display = 'none';
-		document.getElementById('filter').alt = null;
+		if (image == "none")
+		{
+			document.getElementById('filter').style.display = 'none';
+			document.getElementById('filter').alt = null;
+		}
+		else
+		{
+			document.getElementById('filter').style.display = null;
+			document.getElementById('filter').src="img/"+image+".png";
+			document.getElementById('filter').alt=image;
+		}
 	}
 	else
 	{
-		document.getElementById('filter').style.display = null;
-		document.getElementById('filter').src="img/"+image+".png";
-		document.getElementById('filter').alt=image;
+		alert("Vous devez activez votre camera ou telecharger une image !")
 	}
 }
 
-function createButtons(){
+function createButtons(tool){
 	var button = document.getElementById('saveButton');
 	if (!button)
 	{
 		var button = document.createElement("button");
 		var text = document.createTextNode("Sauvegarder l'image");
 
-		button.setAttribute("onclick", "saveImage();");
+		button.setAttribute("onclick", "saveImage('"+tool+"');");
 		button.setAttribute("id", "saveButton");
 		button.appendChild(text);
 		document.getElementsByClassName("main-frame")[0].appendChild(button);
@@ -53,8 +62,20 @@ function addgallery(){
 	xhr.send();
 }
 
-function saveImage(){
-	var photo = document.getElementById('photo');
+function saveImage(tool){
+	if (tool === 'cam')
+	{
+		var photo = document.getElementById('photo');
+	}
+	else if(tool === 'troll')
+	{
+		var photo = document.getElementById('uploaded-photo');
+	}
+	else
+	{
+		takePictureImported();
+		return;
+	}
 
 	var xhr = getXMLHttpRequest();
 
@@ -62,6 +83,10 @@ function saveImage(){
 	if (this.readyState == 4 && this.status == 200) {
 		addgallery();
 		savedConfirm();
+		if (tool === 'troll')
+		{
+			photo.src = 'pages/img/imgtmp.png';
+		}
 		}
 	};
 
@@ -106,6 +131,57 @@ function displayImage(link) {
 	img.src = link.href;
 	overlay.style.display = 'block';
 	overlay.innerHTML = '<span>Chargement en cours...</span>';
+}
+
+function takePictureImported() {
+	var xhr = getXMLHttpRequest();
+	var data = "troll";
+
+	xhr.onreadystatechange = function() {
+	if (this.readyState == 4 && this.status == 200) {
+		document.getElementById('uploaded-photo').src = this.responseText;
+		saveImage(data);
+		}
+	};
+
+	var filtre = document.getElementById('filter').alt;
+	if (!filtre || filtre == 'null')
+	{
+		alert("Vous devez selectionner un filtre !");
+		return ;
+	}
+
+	xhr.open("POST", "pages/photoshop_room.php", true);
+	xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	xhr.send("img="+encodeURIComponent(data)+"&filtre="+encodeURIComponent(filtre)+"&with=import");
+}
+
+function errorUpload(message) {
+	switch (message) {
+		case '1':
+			message = 'Upload réussi !';
+			window.allowFilter = true;
+			break;
+		case '2':
+			message = 'Problème lors de l\'upload !';
+			break;
+		case '3':
+			message = 'Une erreur interne a empêché l\'uplaod de l\'image';
+			break;
+		case '4':
+			message = 'Erreur dans les dimensions de l\'image !';
+			break;
+		case '5':
+			message = 'Le fichier à uploader n\'est pas une image !';
+			break;
+		case '6':
+			message = 'L\'extension du fichier est incorrecte !';
+			break;
+		case '7':
+			message = 'Veuillez remplir le formulaire svp !';
+			break;
+	}
+	alert(message);
 }
 
 document.getElementById('overlay').addEventListener('click', function(e) {

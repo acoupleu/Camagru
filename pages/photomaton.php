@@ -6,12 +6,12 @@ if (isset($_SESSION["connect"]) && isset($_SESSION["username"]))
 <script src="javascript/webcam.js"></script>
 <div id="photomaton">
 <div class="main-frame">
-	<p id="support-notice">Your browser does not support Ajax uploads :-(<br/>The form will be submitted as normal.</p>
-	<form action="/" method="post" enctype="multipart/form-data" id="form-id">
-		<p><input id="file-id" type="file" name="our-file" />
-		<input type="button" value="Upload" id="upload-button-id" disabled="disabled" /></p>
-		<p><label>Some other field: <input name="other-field" type="text" id="other-field-id" /></label></p>
-		<p><input type="submit" value="Submit" /></p>
+	<form>
+		<select id="camImport" onchange="camOrImport(value);" name="choice" size="1">
+		<optgroup label="Selectionnez un mode de capture">
+		<option value="import">Importer une image</option>
+		<option value="cam">Camera</option>
+		</select>
 	</form>
 	<div>
 		<table class="photomaton">
@@ -23,11 +23,36 @@ if (isset($_SESSION["connect"]) && isset($_SESSION["username"]))
 				<td onclick="setImage('ironman');" class="photo"><img class="miniature" src="img/ironman.png"></td>
 			</tr>
 		</table>
+		<div id="upload-div">
+			<form enctype="multipart/form-data" action="./pages/upload.php" method="post">
+				<fieldset>
+				<legend>Uploader une image</legend>
+				<p>
+					Votre image doit être en format png et de la taille 500*375
+					<br/>
+					<br/>
+					<label for="fichier_a_uploader" title="Recherchez le fichier à uploader !">Envoyer le fichier :</label>
+					<input type="hidden" name="MAX_FILE_SIZE" value="<?php echo MAX_SIZE; ?>" />
+					<input name="fichier" type="file" id="fichier_a_uploader" />
+					<br/>
+					<input type="submit" name="submit" value="Uploader" />
+				</p>
+			</fieldset>
+			</form>
+		</div>
 	</div>
 	<img id="filter">
+<?php
+	if (file_exists('pages/img/imgtmp.png'))
+	{
+?>
+	<div id="uploaded-div">
+		<img id="uploaded-photo" src="pages/img/imgtmp.png"/>
+	</div>
+<?php } ?>
 </div>
-<div class="side-frame">
-</div>
+	<div class="side-frame">
+	</div>
 </div>
 <div id="overlay"></div>
 <script src="javascript/imgManagement.js"></script>
@@ -35,6 +60,23 @@ if (isset($_SESSION["connect"]) && isset($_SESSION["username"]))
 	addgallery();
 </script>
 <?php
+	if (file_exists('pages/img/imgtmp.png'))
+	{
+?>
+	<script>
+		window.allowFilter = true;
+		createButtons('image');
+	</script>
+<?php
+	}
+	if (isset($_GET['msg']))
+	{
+?>
+		<script>
+			errorUpload('<?php echo $_GET["msg"]; ?>');
+		</script>
+<?php
+	}
 }
 else
 {

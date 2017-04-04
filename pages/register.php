@@ -6,7 +6,7 @@ if (!isset($_SESSION["connect"]))
 	<form action="index.php?p=register" method="post">
 		<input type="text" name="username" placeholder="Ex : jean59" required/>
 		<input type="password" name="password" placeholder="password" required/>
-		<input type="text" name="email" placeholder="Ex : jean59@gmail.com" required/>
+		<input type="email" name="email" placeholder="Ex : jean59@gmail.com" required/>
 		<input type="submit" value="S'enregister">
 	</form>
 <?php
